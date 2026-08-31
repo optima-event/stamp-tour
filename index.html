@@ -781,6 +781,11 @@ const totalStamps = 4;
 // ===============================
 
 const params = new URLSearchParams(window.location.search);
+  // 테스트용 스탬프 초기화
+if (params.get("reset") === "1") {
+  localStorage.removeItem("optimaStamps");
+  window.location.href = window.location.pathname;
+}
 const newStamp = params.get("stamp");
 
 
