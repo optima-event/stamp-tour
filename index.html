@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>STAMP TOUR</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f5f2;
+    margin: 0;
+    text-align: center;
+    color: #222;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 50px 25px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 40px;
+}
+
+.stamps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.stamp {
+    background: white;
+    border: 2px dashed #ccc;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+}
+
+.stamp .icon {
+    font-size: 45px;
+    margin-bottom: 8px;
+}
+
+.stamp.completed {
+    background: #222;
+    color: white;
+    border: 2px solid #222;
+}
+
+.progress {
+    margin-top: 35px;
+    font-size: 18px;
+}
+
+.complete {
+    display: none;
+    margin-top: 35px;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.complete h2 {
+    margin-top: 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>STAMP TOUR</h1>
+
+<div class="subtitle">
+QR코드를 스캔하고 스탬프를 모아보세요!
+</div>
+
+<div class="stamps">
+
+<div class="stamp" id="stamp1">
+    <div class="icon">○</div>
+    <div>SPOT 01</div>
+</div>
+
+<div class="stamp" id="stamp2">
+    <div class="icon">○</div>
+    <div>SPOT 02</div>
+</div>
+
+<div class="stamp" id="stamp3">
+    <div class="icon">○</div>
+    <div>SPOT 03</div>
+</div>
+
+<div class="stamp" id="stamp4">
+    <div class="icon">○</div>
+    <div>SPOT 04</div>
+</div>
+
+</div>
+
+<div class="progress" id="progress">
+0 / 4 STAMPS
+</div>
+
+<div class="complete" id="complete">
+
+<h2>🎉 STAMP TOUR COMPLETE!</h2>
+
+<p>
+모든 스탬프를 모았습니다.<br>
+직원에게 이 화면을 보여주세요.
+</p>
+
+</div>
+
+</div>
+
+
+<script>
+
+const totalStamps = 4;
+
+// URL에서 stamp 값 가져오기
+
+const params = new URLSearchParams(window.location.search);
+const newStamp = params.get("stamp");
+
+// 기존 스탬프 기록 가져오기
+
+let stamps = JSON.parse(localStorage.getItem("myStamps")) || [];
+
+// QR을 통해 들어온 경우 스탬프 추가
+
+if (newStamp && !stamps.includes(newStamp)) {
+
+    stamps.push(newStamp);
+
+    localStorage.setItem(
+        "myStamps",
+        JSON.stringify(stamps)
+    );
+}
+
+// 화면에 스탬프 표시
+
+stamps.forEach(function(number) {
+
+    const stamp = document.getElementById("stamp" + number);
+
+    if (stamp) {
+
+        stamp.classList.add("completed");
+
+        stamp.querySelector(".icon").innerHTML = "✓";
+
+    }
+
+});
+
+// 진행상황 표시
+
+document.getElementById("progress").innerHTML =
+stamps.length + " / " + totalStamps + " STAMPS";
+
+// 전부 모았는지 확인
+
+if (stamps.length >= totalStamps) {
+
+    document.getElementById("complete").style.display = "block";
+
+}
+
+</script>
+
+</body>
+</html>
