@@ -508,6 +508,36 @@ body {
 
   cursor: pointer;
 }
+/* =========================
+   SPOT 소개 / 방문 완료
+   ========================= */
+
+.stamp-desc {
+  margin-top: 7px;
+  font-size: 11px;
+  line-height: 1.55;
+  color: #aaa0b6;
+  text-align: center;
+}
+
+.stamp-done {
+  display: none;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #c88dff;
+  text-shadow: 0 0 10px rgba(184, 102, 255, 0.4);
+}
+
+/* 스탬프를 찍으면 소개 문구 숨기기 */
+.stamp-card.completed .stamp-desc {
+  display: none;
+}
+
+/* 스탬프를 찍으면 방문 완료 표시 */
+.stamp-card.completed .stamp-done {
+  display: block;
+}
 </style>
 </head>
 
@@ -563,56 +593,92 @@ body {
        스탬프 4개
        이름도 자유롭게 수정 가능
        ========================= -->
-  <div class="stamps">
+<div class="stamps">
 
-    <div class="stamp-card" id="stamp1">
-      <div class="stamp-number">01</div>
+  <!-- 01 스킨 분석 존 -->
+  <div class="stamp-card" id="stamp1">
+    <div class="stamp-number">01</div>
 
-      <div class="stamp-circle">
-        <div class="check">✓</div>
-      </div>
-
-      <div class="stamp-title">AI SKIN LAB</div>
-      <div class="stamp-sub">스킨 분석 존</div>
+    <div class="stamp-circle">
+      <div class="check">✓</div>
     </div>
 
+    <div class="stamp-title">SKIN ANALYSIS</div>
 
-    <div class="stamp-card" id="stamp2">
-      <div class="stamp-number">02</div>
-
-      <div class="stamp-circle">
-        <div class="check">✓</div>
-      </div>
-
-      <div class="stamp-title">EVENT ZONE</div>
-      <div class="stamp-sub">이벤트 존</div>
+    <div class="stamp-desc">
+      AI 피부 분석을 통해<br>
+      나의 피부 상태를 확인해보세요.
     </div>
 
-
-    <div class="stamp-card" id="stamp3">
-      <div class="stamp-number">03</div>
-
-      <div class="stamp-circle">
-        <div class="check">✓</div>
-      </div>
-
-      <div class="stamp-title">OLIGIO ZONE</div>
-      <div class="stamp-sub">올리지오 존</div>
+    <div class="stamp-done">
+      ✓ 방문 완료
     </div>
-
-
-    <div class="stamp-card" id="stamp4">
-      <div class="stamp-number">04</div>
-
-      <div class="stamp-circle">
-        <div class="check">✓</div>
-      </div>
-
-      <div class="stamp-title">ROBOT COFFEE</div>
-      <div class="stamp-sub">로봇 커피 존</div>
-    </div>
-
   </div>
+
+
+  <!-- 02 이벤트 존 -->
+  <div class="stamp-card" id="stamp2">
+    <div class="stamp-number">02</div>
+
+    <div class="stamp-circle">
+      <div class="check">✓</div>
+    </div>
+
+    <div class="stamp-title">EVENT ZONE</div>
+
+    <div class="stamp-desc">
+      OPTIMA CLINIC이 준비한<br>
+      특별한 이벤트를 만나보세요.
+    </div>
+
+    <div class="stamp-done">
+      ✓ 방문 완료
+    </div>
+  </div>
+
+
+  <!-- 03 올리지오 존 -->
+  <div class="stamp-card" id="stamp3">
+    <div class="stamp-number">03</div>
+
+    <div class="stamp-circle">
+      <div class="check">✓</div>
+    </div>
+
+    <div class="stamp-title">OLIGIO ZONE</div>
+
+    <div class="stamp-desc">
+      올리지오를 직접 만나보고<br>
+      리프팅 솔루션을 경험해보세요.
+    </div>
+
+    <div class="stamp-done">
+      ✓ 방문 완료
+    </div>
+  </div>
+
+
+  <!-- 04 로봇 커피 존 -->
+  <div class="stamp-card" id="stamp4">
+    <div class="stamp-number">04</div>
+
+    <div class="stamp-circle">
+      <div class="check">✓</div>
+    </div>
+
+    <div class="stamp-title">ROBOT COFFEE</div>
+
+    <div class="stamp-desc">
+      로봇이 만들어주는 커피와 함께<br>
+      잠시 여유를 즐겨보세요.
+    </div>
+
+    <div class="stamp-done">
+      ✓ 방문 완료
+    </div>
+  </div>
+
+</div>
 
 
   <!-- =========================
