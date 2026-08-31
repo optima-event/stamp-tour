@@ -346,6 +346,168 @@ body {
     height: 82px;
   }
 }
+/* =========================
+   COMPLETE 전체 화면
+   ========================= */
+
+.complete-screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(145, 64, 255, 0.35),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(96, 32, 170, 0.28),
+      transparent 40%
+    ),
+    linear-gradient(
+      180deg,
+      #12051f 0%,
+      #08040f 55%,
+      #050309 100%
+    );
+
+  align-items: center;
+  justify-content: center;
+  padding: 30px 24px;
+}
+
+.complete-content {
+  width: 100%;
+  max-width: 430px;
+  text-align: center;
+}
+
+.complete-logo {
+  width: 165px;
+  max-width: 55%;
+  margin-bottom: 60px;
+
+  filter:
+    drop-shadow(0 0 12px rgba(159, 83, 255, 0.45));
+}
+
+.complete-circle {
+  width: 145px;
+  height: 145px;
+
+  margin: 0 auto 32px;
+
+  border-radius: 50%;
+  border: 2px solid #b268ff;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 70px;
+  color: white;
+
+  box-shadow:
+    0 0 15px rgba(255,255,255,0.45),
+    0 0 35px rgba(169, 76, 255, 0.85),
+    0 0 70px rgba(139, 52, 255, 0.4),
+    inset 0 0 30px rgba(168, 76, 255, 0.18);
+
+  animation: completeGlow 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes completeGlow {
+
+  from {
+    transform: scale(1);
+    box-shadow:
+      0 0 15px rgba(255,255,255,0.4),
+      0 0 30px rgba(169,76,255,0.7);
+  }
+
+  to {
+    transform: scale(1.04);
+    box-shadow:
+      0 0 25px rgba(255,255,255,0.7),
+      0 0 55px rgba(169,76,255,1);
+  }
+
+}
+
+.complete-content h1 {
+  margin: 0;
+
+  font-size: 48px;
+  line-height: 1;
+
+  letter-spacing: -1.5px;
+
+  color: white;
+
+  text-shadow:
+    0 0 12px rgba(255,255,255,0.65),
+    0 0 28px rgba(158,75,255,0.7);
+}
+
+.complete-content h2 {
+  margin: 9px 0 28px;
+
+  font-size: 24px;
+
+  color: #b66fff;
+
+  letter-spacing: 1px;
+}
+
+.complete-content p {
+  color: #d8d0e1;
+
+  font-size: 14px;
+
+  line-height: 1.8;
+
+  margin-bottom: 25px;
+}
+
+.complete-count {
+  display: inline-block;
+
+  padding: 10px 22px;
+
+  border-radius: 999px;
+
+  border: 1px solid rgba(185, 112, 255, 0.55);
+
+  color: #c88dff;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  box-shadow:
+    0 0 18px rgba(158, 69, 255, 0.15);
+}
+
+.view-stamp-btn {
+  display: block;
+
+  margin: 35px auto 0;
+
+  padding: 13px 22px;
+
+  background: transparent;
+
+  color: #a995b8;
+
+  border: 1px solid rgba(255,255,255,0.18);
+
+  border-radius: 12px;
+
+  font-size: 13px;
+
+  cursor: pointer;
+}
 </style>
 </head>
 
@@ -496,37 +658,41 @@ body {
   <!-- =========================
        4/4 완료 시 표시되는 화면
        ========================= -->
-  <div class="complete" id="complete">
+<!-- =========================
+     COMPLETE 전체 화면
+     ========================= -->
+<div class="complete-screen" id="completeScreen">
 
-    <div class="complete-icon">
+  <div class="complete-content">
+
+    <img src="optima-logo.png"
+         alt="OPTIMA CLINIC"
+         class="complete-logo">
+
+    <div class="complete-circle">
       ✓
     </div>
 
-    <h2>COMPLETE!</h2>
-    <h3>STAMP TOUR</h3>
+    <h1>COMPLETE!</h1>
+
+    <h2>STAMP TOUR</h2>
 
     <p>
-      모든 스탬프를 모으셨습니다!<br>
-      참여해주셔서 감사합니다.
+      모든 스탬프를 완성하셨습니다.<br>
+      OPTIMA CLINIC과 함께해 주셔서 감사합니다.
     </p>
 
-    <p>
-      아래 버튼을 눌러 참여 정보를 제출해주세요.
-    </p>
+    <div class="complete-count">
+      4 / 4 STAMPS
+    </div>
 
-    <!--
-    ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-    나중에 여기에 Tally 주소 입력
-    -->
-    <a
-      href="여기에_TALLY_주소"
-      target="_blank"
-      class="submit-btn"
-    >
-      📸 참여 정보 제출하기
-    </a>
+    <button onclick="showStampBoard()" class="view-stamp-btn">
+      MY STAMP 보기
+    </button>
 
   </div>
+
+</div>
 
 
   <div class="footer">
@@ -621,8 +787,12 @@ document.getElementById("progressBar").style.width =
 
 if (completedCount >= totalStamps) {
 
-  document.getElementById("complete").style.display =
-    "block";
+  setTimeout(function() {
+
+    document.getElementById("completeScreen").style.display =
+      "flex";
+
+  }, 700);
 
 }
 
