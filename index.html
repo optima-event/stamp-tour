@@ -795,7 +795,15 @@ if (completedCount >= totalStamps) {
   }, 700);
 
 }
+function showStampBoard() {
+  document.getElementById("completeScreen").style.display = "none";
+  document.querySelector(".page").style.display = "block";
 
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
 </script>
 
 </body>
