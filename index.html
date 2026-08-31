@@ -4,133 +4,534 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>STAMP TOUR</title>
+<title>OPTIMA STAMP TOUR</title>
 
 <style>
+* {
+  box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f7f5f2;
-    margin: 0;
-    text-align: center;
-    color: #222;
+  margin: 0;
+  font-family: Arial, "Noto Sans KR", sans-serif;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(148, 75, 255, 0.22), transparent 32%),
+    linear-gradient(180deg, #12051f 0%, #08040f 55%, #050309 100%);
+  color: #ffffff;
+  min-height: 100vh;
 }
 
-.container {
-    max-width: 500px;
-    margin: auto;
-    padding: 50px 25px;
+.page {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 28px 20px 44px;
 }
 
-h1 {
-    font-size: 32px;
-    margin-bottom: 8px;
+.logo-wrap {
+  text-align: center;
+  margin-bottom: 42px;
 }
 
-.subtitle {
-    color: #777;
-    margin-bottom: 40px;
+.logo-wrap img {
+  width: 180px;
+  max-width: 60%;
+  filter: drop-shadow(0 0 12px rgba(146, 69, 255, 0.35));
+}
+
+.hero-kicker {
+  text-align: center;
+  color: #c8a7ff;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  margin-bottom: 8px;
+}
+
+.hero-title {
+  margin: 0;
+  text-align: center;
+  font-size: 40px;
+  line-height: 0.98;
+  font-weight: 800;
+  letter-spacing: -1.4px;
+}
+
+.hero-title .chrome {
+  color: #ffffff;
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.7),
+    0 0 18px rgba(151,72,255,0.55);
+}
+
+.hero-title .purple {
+  display: block;
+  margin-top: 8px;
+  color: #a86cff;
+}
+
+.hero-desc {
+  margin: 24px auto 30px;
+  text-align: center;
+  color: #d7d0df;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.progress-card {
+  border: 1px solid rgba(190, 143, 255, 0.32);
+  background: rgba(255,255,255,0.045);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 0 32px rgba(107, 35, 188, 0.12);
+}
+
+.progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+.progress-count {
+  color: #bb82ff;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.14);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8241e8, #c17aff);
+  box-shadow: 0 0 14px rgba(175, 94, 255, 0.9);
+  transition: width 0.45s ease;
 }
 
 .stamps {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
 }
 
-.stamp {
-    background: white;
-    border: 2px dashed #ccc;
-    border-radius: 50%;
-    aspect-ratio: 1/1;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 16px;
+.stamp-card {
+  min-height: 210px;
+  padding: 16px 12px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(194, 155, 255, 0.26);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.stamp .icon {
-    font-size: 45px;
-    margin-bottom: 8px;
+.stamp-number {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  border: 1px solid rgba(186, 128, 255, 0.75);
+  color: #d8bfff;
 }
 
-.stamp.completed {
-    background: #222;
-    color: white;
-    border: 2px solid #222;
+.stamp-circle {
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  border: 2px solid rgba(218, 195, 255, 0.38);
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  transition: all 0.35s ease;
 }
 
-.progress {
-    margin-top: 35px;
-    font-size: 18px;
+.stamp-circle::before,
+.stamp-circle::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  inset: 8px;
+  border: 1px solid rgba(197, 153, 255, 0.16);
+}
+
+.stamp-circle::after {
+  inset: 17px;
+}
+
+.check {
+  font-size: 42px;
+  color: rgba(255,255,255,0.18);
+  transition: all 0.35s ease;
+}
+
+.stamp-card.completed .stamp-circle {
+  border-color: #b064ff;
+  box-shadow:
+    0 0 14px rgba(158, 64, 255, 0.95),
+    0 0 28px rgba(158, 64, 255, 0.55),
+    inset 0 0 22px rgba(163, 77, 255, 0.15);
+}
+
+.stamp-card.completed .check {
+  color: #ffffff;
+  text-shadow:
+    0 0 10px #ffffff,
+    0 0 20px #a748ff,
+    0 0 32px #8c36ff;
+}
+
+.stamp-title {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.stamp-sub {
+  font-size: 12px;
+  color: #aaa0b6;
+  text-align: center;
+}
+
+.info-card {
+  margin-top: 20px;
+  padding: 22px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(186, 128, 255, 0.24);
+  background: rgba(255,255,255,0.035);
+}
+
+.info-title {
+  text-align: center;
+  color: #b876ff;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.step {
+  text-align: center;
+}
+
+.step-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin: 0 auto 9px;
+  border: 1px solid rgba(183, 119, 255, 0.55);
+  display: grid;
+  place-items: center;
+  color: #d0a9ff;
+  font-size: 21px;
+}
+
+.step strong {
+  display: block;
+  color: #c484ff;
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+
+.step span {
+  display: block;
+  font-size: 9px;
+  line-height: 1.4;
+  color: #aaa1b2;
 }
 
 .complete {
-    display: none;
-    margin-top: 35px;
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
+  display: none;
+  margin-top: 24px;
+  text-align: center;
+  padding: 30px 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(193, 121, 255, 0.55);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(177, 90, 255, 0.25), transparent 45%),
+    rgba(255,255,255,0.045);
+  box-shadow: 0 0 36px rgba(142, 53, 255, 0.16);
+}
+
+.complete-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  border: 2px solid #aa62ff;
+  display: grid;
+  place-items: center;
+  font-size: 58px;
+  box-shadow:
+    0 0 20px rgba(173, 86, 255, 0.95),
+    0 0 42px rgba(173, 86, 255, 0.45);
 }
 
 .complete h2 {
-    margin-top: 0;
+  margin: 0;
+  font-size: 36px;
+  letter-spacing: -1px;
+  text-shadow: 0 0 14px rgba(255,255,255,0.4);
 }
 
+.complete h3 {
+  margin: 4px 0 18px;
+  color: #a963ff;
+  font-size: 24px;
+}
+
+.complete p {
+  color: #d4cddd;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.submit-btn {
+  display: block;
+  margin-top: 22px;
+  padding: 17px 18px;
+  border-radius: 16px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  background:
+    linear-gradient(90deg, #9250df, #c083ff);
+  box-shadow: 0 0 22px rgba(171, 85, 255, 0.35);
+}
+
+.footer {
+  text-align: center;
+  margin-top: 38px;
+  color: #7f36d6;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 34px;
+  }
+
+  .stamp-card {
+    min-height: 190px;
+  }
+
+  .stamp-circle {
+    width: 82px;
+    height: 82px;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
 
-<h1>STAMP TOUR</h1>
+  <!-- =========================
+       로고
+       ========================= -->
+  <div class="logo-wrap">
+    <img src="optima-logo.png" alt="OPTIMA CLINIC">
+  </div>
 
-<div class="subtitle">
-QR코드를 스캔하고 스탬프를 모아보세요!
-</div>
 
-<div class="stamps">
+  <!-- =========================
+       상단 문구
+       여기 문구는 자유롭게 수정 가능
+       ========================= -->
+  <div class="hero-kicker">
+    AI가 만드는 새로운 피부의 기준
+  </div>
 
-<div class="stamp" id="stamp1">
-    <div class="icon">○</div>
-    <div>SPOT 01</div>
-</div>
+  <h1 class="hero-title">
+    <span class="chrome">OPTIMA</span>
+    <span class="purple">STAMP TOUR</span>
+  </h1>
 
-<div class="stamp" id="stamp2">
-    <div class="icon">○</div>
-    <div>SPOT 02</div>
-</div>
+  <div class="hero-desc">
+    4곳의 스팟을 방문하고 스탬프를 모아보세요.<br>
+    모든 스탬프를 완성하면 특별한 혜택이 기다리고 있어요.
+  </div>
 
-<div class="stamp" id="stamp3">
-    <div class="icon">○</div>
-    <div>SPOT 03</div>
-</div>
 
-<div class="stamp" id="stamp4">
-    <div class="icon">○</div>
-    <div>SPOT 04</div>
-</div>
+  <!-- =========================
+       진행률
+       ========================= -->
+  <div class="progress-card">
 
-</div>
+    <div class="progress-top">
+      <span>MY STAMP</span>
+      <span class="progress-count" id="progressCount">0 / 4</span>
+    </div>
 
-<div class="progress" id="progress">
-0 / 4 STAMPS
-</div>
+    <div class="progress-track">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
 
-<div class="complete" id="complete">
+  </div>
 
-<h2>🎉 STAMP TOUR COMPLETE!</h2>
 
-<p>
-모든 스탬프를 모았습니다.<br>
-직원에게 이 화면을 보여주세요.
-</p>
+  <!-- =========================
+       스탬프 4개
+       이름도 자유롭게 수정 가능
+       ========================= -->
+  <div class="stamps">
 
-</div>
+    <div class="stamp-card" id="stamp1">
+      <div class="stamp-number">01</div>
+
+      <div class="stamp-circle">
+        <div class="check">✓</div>
+      </div>
+
+      <div class="stamp-title">AI SKIN LAB</div>
+      <div class="stamp-sub">스킨 분석 존</div>
+    </div>
+
+
+    <div class="stamp-card" id="stamp2">
+      <div class="stamp-number">02</div>
+
+      <div class="stamp-circle">
+        <div class="check">✓</div>
+      </div>
+
+      <div class="stamp-title">AI CONSULTING</div>
+      <div class="stamp-sub">상담 존</div>
+    </div>
+
+
+    <div class="stamp-card" id="stamp3">
+      <div class="stamp-number">03</div>
+
+      <div class="stamp-circle">
+        <div class="check">✓</div>
+      </div>
+
+      <div class="stamp-title">AI SOLUTION</div>
+      <div class="stamp-sub">시술 체험 존</div>
+    </div>
+
+
+    <div class="stamp-card" id="stamp4">
+      <div class="stamp-number">04</div>
+
+      <div class="stamp-circle">
+        <div class="check">✓</div>
+      </div>
+
+      <div class="stamp-title">AI EXPERIENCE</div>
+      <div class="stamp-sub">브랜드 체험 존</div>
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       참여 방법
+       ========================= -->
+  <div class="info-card">
+
+    <div class="info-title">
+      STAMP TOUR 참여 방법
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-icon">⌁</div>
+        <strong>QR 스캔</strong>
+        <span>각 스팟의 QR을<br>스캔해주세요</span>
+      </div>
+
+      <div class="step">
+        <div class="step-icon">✓</div>
+        <strong>스탬프 획득</strong>
+        <span>방문 인증으로<br>스탬프 획득</span>
+      </div>
+
+      <div class="step">
+        <div class="step-icon">◫</div>
+        <strong>4개 모으기</strong>
+        <span>모든 스탬프를<br>모아주세요</span>
+      </div>
+
+      <div class="step">
+        <div class="step-icon">✦</div>
+        <strong>혜택 받기</strong>
+        <span>완료 후 특별한<br>혜택을 확인</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       4/4 완료 시 표시되는 화면
+       ========================= -->
+  <div class="complete" id="complete">
+
+    <div class="complete-icon">
+      ✓
+    </div>
+
+    <h2>COMPLETE!</h2>
+    <h3>STAMP TOUR</h3>
+
+    <p>
+      모든 스탬프를 모으셨습니다!<br>
+      참여해주셔서 감사합니다.
+    </p>
+
+    <p>
+      아래 버튼을 눌러 참여 정보를 제출해주세요.
+    </p>
+
+    <!--
+    ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    나중에 여기에 Tally 주소 입력
+    -->
+    <a
+      href="여기에_TALLY_주소"
+      target="_blank"
+      class="submit-btn"
+    >
+      📸 참여 정보 제출하기
+    </a>
+
+  </div>
+
+
+  <div class="footer">
+    OPTIMA CLINIC
+  </div>
 
 </div>
 
@@ -139,53 +540,89 @@ QR코드를 스캔하고 스탬프를 모아보세요!
 
 const totalStamps = 4;
 
-// URL에서 stamp 값 가져오기
+
+// ===============================
+// URL에서 stamp 번호 가져오기
+// 예: ?stamp=3
+// ===============================
 
 const params = new URLSearchParams(window.location.search);
 const newStamp = params.get("stamp");
 
-// 기존 스탬프 기록 가져오기
 
-let stamps = JSON.parse(localStorage.getItem("myStamps")) || [];
+// ===============================
+// 기존에 찍은 스탬프 불러오기
+// ===============================
 
-// QR을 통해 들어온 경우 스탬프 추가
+let stamps =
+  JSON.parse(localStorage.getItem("optimaStamps")) || [];
 
-if (newStamp && !stamps.includes(newStamp)) {
 
-    stamps.push(newStamp);
+// ===============================
+// 정상적인 stamp 값만 인정
+// ===============================
 
-    localStorage.setItem(
-        "myStamps",
-        JSON.stringify(stamps)
-    );
+const validStamps = ["1", "2", "3", "4"];
+
+if (
+  newStamp &&
+  validStamps.includes(newStamp) &&
+  !stamps.includes(newStamp)
+) {
+
+  stamps.push(newStamp);
+
+  localStorage.setItem(
+    "optimaStamps",
+    JSON.stringify(stamps)
+  );
+
 }
 
-// 화면에 스탬프 표시
+
+// ===============================
+// 찍힌 스탬프 화면에 표시
+// ===============================
 
 stamps.forEach(function(number) {
 
-    const stamp = document.getElementById("stamp" + number);
+  const stamp =
+    document.getElementById("stamp" + number);
 
-    if (stamp) {
-
-        stamp.classList.add("completed");
-
-        stamp.querySelector(".icon").innerHTML = "✓";
-
-    }
+  if (stamp) {
+    stamp.classList.add("completed");
+  }
 
 });
 
-// 진행상황 표시
 
-document.getElementById("progress").innerHTML =
-stamps.length + " / " + totalStamps + " STAMPS";
+// ===============================
+// 진행률 계산
+// ===============================
 
-// 전부 모았는지 확인
+const completedCount =
+  stamps.filter(function(number) {
+    return validStamps.includes(number);
+  }).length;
 
-if (stamps.length >= totalStamps) {
+document.getElementById("progressCount").innerText =
+  completedCount + " / " + totalStamps;
 
-    document.getElementById("complete").style.display = "block";
+const percentage =
+  (completedCount / totalStamps) * 100;
+
+document.getElementById("progressBar").style.width =
+  percentage + "%";
+
+
+// ===============================
+// 4개 다 모으면 COMPLETE 노출
+// ===============================
+
+if (completedCount >= totalStamps) {
+
+  document.getElementById("complete").style.display =
+    "block";
 
 }
 
